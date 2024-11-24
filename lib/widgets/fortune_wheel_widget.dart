@@ -10,6 +10,7 @@ class FortuneWheelWidget extends StatefulWidget {
   final Color borderColor;
   final StreamController<int> streamController;
   final VoidCallback onSpin;
+  final VoidCallback onAnimationEnd; // New callback for animation end
 
   FortuneWheelWidget({
     required this.items,
@@ -17,6 +18,7 @@ class FortuneWheelWidget extends StatefulWidget {
     required this.borderColor,
     required this.streamController,
     required this.onSpin,
+    required this.onAnimationEnd, // Pass from parent
   });
 
   @override
@@ -36,7 +38,6 @@ class _FortuneWheelWidgetState extends State<FortuneWheelWidget> {
 
   Future<void> _playClickSound() async {
     try {
-      // Load and play the sound
       await _audioPlayer.play(AssetSource('sounds/click_wheel.wav'));
     } catch (e) {
       debugPrint("Error playing sound: $e");
@@ -57,7 +58,6 @@ class _FortuneWheelWidgetState extends State<FortuneWheelWidget> {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         FocusScope.of(context).unfocus();
-        // FocusManager.instance.primaryFocus?.unfocus();
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         widget.onSpin(); // Trigger spin
       },
@@ -71,7 +71,7 @@ class _FortuneWheelWidgetState extends State<FortuneWheelWidget> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 20, 20, 20),
+                  color: const Color.fromARGB(255, 20, 20, 20),
                 ),
               ),
               style: FortuneItemStyle(
@@ -90,6 +90,7 @@ class _FortuneWheelWidgetState extends State<FortuneWheelWidget> {
         },
         onAnimationEnd: () {
           _playEndSound();
+          widget.onAnimationEnd(); // Notify parent
         },
       ),
     );

@@ -21,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   final StreamController<int> _selectedStreamController =
       StreamController<int>.broadcast();
   int? _cheatCount;
+  bool _isSpinning = false; // Flag to track spinning state
 
   @override
   void dispose() {
@@ -46,39 +47,24 @@ class _MainScreenState extends State<MainScreen> {
   void _spinWheel() {
     if (_items.length < 2) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Add at least two items to spin the wheel!')),
+        const SnackBar(
+            content: Text('Add at least two items to spin the wheel!')),
       );
       return;
     }
 
-    // final biasIndex = _getBiasIndexBasedOnWord();
-    // final randomIndex =
-    //     biasIndex != -1 ? biasIndex : Random().nextInt(_items.length);
+    if (_isSpinning) return; // Prevent multiple spins
+
+    setState(() {
+      _isSpinning = true; // Set spinning flag
+    });
+
     final randomIndex =
         _cheatCount != null ? _cheatCount : Random().nextInt(_items.length);
     setState(() {
       _cheatCount = null;
     });
     _selectedStreamController.add(randomIndex!);
-  }
-
-  int _getBiasIndexBasedOnWord() {
-    final biases = [
-      'tim',
-      'mothe',
-      'tite',
-      'titus',
-      'bg',
-      'tit',
-      'rexx',
-      '289',
-      'blon',
-      'mel'
-    ];
-    return biases
-        .map((bias) =>
-            _items.indexWhere((item) => item.toLowerCase().contains(bias)))
-        .firstWhere((index) => index != -1, orElse: () => -1);
   }
 
   List<String> _getWheelItems() {
@@ -141,6 +127,11 @@ class _MainScreenState extends State<MainScreen> {
                 borderColor: _getWheelBorderColor(),
                 streamController: _selectedStreamController,
                 onSpin: _spinWheel,
+                onAnimationEnd: () {
+                  setState(() {
+                    _isSpinning = false; // Reset spinning flag
+                  });
+                },
               ),
             ),
             const SizedBox(height: 40),
