@@ -1,16 +1,6 @@
-# randomizer
+# FortuneWheelCheater
+A fun and customizable fortune wheel application built with Flutter. FortuneWheelCheater lets users spin a random wheel with the unique ability to manipulate the outcome—perfect for adding a twist to games, decision-making, or pranks.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Features
+🎡 Spin the Wheel: Spin a vibrant, customizable wheel to randomly select an option.
+🎯 Outcome Manipulation: Secretly select a specific outcome before spinning the wheel.
