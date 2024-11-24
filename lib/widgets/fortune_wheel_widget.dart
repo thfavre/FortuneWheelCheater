@@ -22,6 +22,7 @@ class FortuneWheelWidget extends StatefulWidget {
   @override
   _FortuneWheelWidgetState createState() => _FortuneWheelWidgetState();
 }
+
 class _FortuneWheelWidgetState extends State<FortuneWheelWidget> {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
@@ -29,7 +30,7 @@ class _FortuneWheelWidgetState extends State<FortuneWheelWidget> {
 
   @override
   void dispose() {
-    _audioPlayer.dispose(); // Release resources when the widget is destroyed
+    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -51,47 +52,46 @@ class _FortuneWheelWidgetState extends State<FortuneWheelWidget> {
   }
 
   @override
-Widget build(BuildContext context) {
-  return GestureDetector(
-    behavior: HitTestBehavior.translucent, // Capture taps but pass them to children too
-    onTap: () {
-      FocusScope.of(context).unfocus(); // Remove keyboard focus
-      // FocusManager.instance.primaryFocus?.unfocus();
-      SystemChannels.textInput.invokeMethod('TextInput.hide');
-      widget.onSpin(); // Trigger spin
-    },
-    child: FortuneWheel(
-      animateFirst: false,
-      items: [
-        for (int i = 0; i < widget.items.length; i++)
-          FortuneItem(
-            child: Text(
-              widget.items[i],
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 20, 20, 20),
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        // FocusManager.instance.primaryFocus?.unfocus();
+        SystemChannels.textInput.invokeMethod('TextInput.hide');
+        widget.onSpin(); // Trigger spin
+      },
+      child: FortuneWheel(
+        animateFirst: false,
+        items: [
+          for (int i = 0; i < widget.items.length; i++)
+            FortuneItem(
+              child: Text(
+                widget.items[i],
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 20, 20, 20),
+                ),
+              ),
+              style: FortuneItemStyle(
+                color: widget.colors[i % widget.colors.length],
+                borderColor: widget.borderColor,
+                textAlign: TextAlign.center,
               ),
             ),
-            style: FortuneItemStyle(
-              color: widget.colors[i % widget.colors.length],
-              borderColor: widget.borderColor,
-              textAlign: TextAlign.center,
-            ),
-          ),
-      ],
-      selected: widget.streamController.stream,
-      onFocusItemChanged: (index) {
-        if (previousIndex != index) {
-          previousIndex = index;
-          _playClickSound();
-        }
-      },
-       onAnimationEnd: () {
-          _playEndSound(); // Play sound when the wheel stops spinning
+        ],
+        selected: widget.streamController.stream,
+        onFocusItemChanged: (index) {
+          if (previousIndex != index) {
+            previousIndex = index;
+            _playClickSound();
+          }
         },
-    ),
-  );
-}
-
+        onAnimationEnd: () {
+          _playEndSound();
+        },
+      ),
+    );
+  }
 }

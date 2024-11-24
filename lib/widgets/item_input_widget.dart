@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ItemInputWidget extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String> onAddItem;
-  final FocusNode focusNode = FocusNode(); // Add a FocusNode
+  final FocusNode focusNode = FocusNode();
 
   ItemInputWidget({required this.controller, required this.onAddItem});
 
@@ -15,7 +15,7 @@ class ItemInputWidget extends StatelessWidget {
         children: [
           TextField(
             controller: controller,
-            focusNode: focusNode, // Attach the FocusNode to the TextField
+            focusNode: focusNode,
             decoration: InputDecoration(
               labelText: 'Enter an item',
               border: OutlineInputBorder(),
@@ -23,7 +23,6 @@ class ItemInputWidget extends StatelessWidget {
             onSubmitted: (value) {
               onAddItem(value);
               controller.clear();
-              // Keep the focus on the TextField
               focusNode.requestFocus();
             },
           ),
@@ -32,7 +31,6 @@ class ItemInputWidget extends StatelessWidget {
             onPressed: () {
               onAddItem(controller.text);
               controller.clear();
-              // Keep the focus on the TextField
               focusNode.requestFocus();
             },
             child: Text('Add Item'),
