@@ -16,7 +16,7 @@ class ItemInputWidget extends StatelessWidget {
           TextField(
             controller: controller,
             focusNode: focusNode,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Enter an item',
               border: OutlineInputBorder(),
             ),
@@ -26,14 +26,14 @@ class ItemInputWidget extends StatelessWidget {
               focusNode.requestFocus();
             },
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
               onAddItem(controller.text);
               controller.clear();
               focusNode.requestFocus();
             },
-            child: Text('Add Item'),
+            child: const Text('Add Item'),
           ),
         ],
       ),

@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   final StreamController<int> _selectedStreamController =
       StreamController<int>.broadcast();
   int? _cheatCount;
-  bool _isSpinning = false; // Flag to track spinning state
+  bool _isSpinning = false;
 
   @override
   void dispose() {
@@ -53,18 +53,17 @@ class _MainScreenState extends State<MainScreen> {
       return;
     }
 
-    if (_isSpinning) return; // Prevent multiple spins
+    if (_isSpinning) return;
 
     setState(() {
-      _isSpinning = true; // Set spinning flag
+      _isSpinning = true;
     });
 
-    final randomIndex =
-        _cheatCount != null ? _cheatCount : Random().nextInt(_items.length);
+    final randomIndex = _cheatCount ?? Random().nextInt(_items.length);
     setState(() {
       _cheatCount = null;
     });
-    _selectedStreamController.add(randomIndex!);
+    _selectedStreamController.add(randomIndex);
   }
 
   List<String> _getWheelItems() {
@@ -99,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
       behavior: HitTestBehavior.opaque,
       onTap: () {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
-        FocusScope.of(context).unfocus(); // Remove keyboard focus
+        FocusScope.of(context).unfocus();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -129,14 +128,15 @@ class _MainScreenState extends State<MainScreen> {
                 onSpin: _spinWheel,
                 onAnimationEnd: () {
                   setState(() {
-                    _isSpinning = false; // Reset spinning flag
+                    _isSpinning = false;
                   });
                 },
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 50),
           ],
         ),
+        // cheating button
         floatingActionButton: GestureDetector(
           onTap: () {
             if (_items.isEmpty) return;
@@ -155,16 +155,17 @@ class _MainScreenState extends State<MainScreen> {
           child: Container(
             width: 60,
             height: 60,
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
+            decoration: const BoxDecoration(
+              color: Colors.transparent,//Theme.of(context).scaffoldBackgroundColor,
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,
             child: Text(
-              '${_cheatCount == null ? '' : _items[_cheatCount!].substring(0, _items[_cheatCount!].length < 5 ? _items[_cheatCount!].length : 5)}',
+              // '${_cheatCount == null ? '' : _items[_cheatCount!].substring(0, _items[_cheatCount!].length < 5 ? _items[_cheatCount!].length : 5)}',
+              '${_cheatCount == null ? "" : _cheatCount!+1}',
               style: TextStyle(
                 fontSize: 15,
-                color: lighten(Theme.of(context).scaffoldBackgroundColor, 0.02),
+                color: lighten(Theme.of(context).scaffoldBackgroundColor, 0.03),
               ),
             ),
           ),

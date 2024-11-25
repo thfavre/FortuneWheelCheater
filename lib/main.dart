@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-import 'theme.dart'; // Import the theme file
-import 'screens/main_screen.dart'; // Adjust path to your NameInputScreen file
+import 'theme.dart';
+import 'screens/main_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Random Picker',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme, // Use light theme
-      darkTheme: AppTheme.darkTheme, // Use dark theme
-      themeMode: ThemeMode.dark, // Set to ThemeMode.light, ThemeMode.dark, or ThemeMode.system
-      home: MainScreen(),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode
+          .dark,
+      home: const MainScreen(),
     );
   }
 }

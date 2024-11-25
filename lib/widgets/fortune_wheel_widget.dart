@@ -10,7 +10,7 @@ class FortuneWheelWidget extends StatefulWidget {
   final Color borderColor;
   final StreamController<int> streamController;
   final VoidCallback onSpin;
-  final VoidCallback onAnimationEnd; // New callback for animation end
+  final VoidCallback onAnimationEnd;
 
   FortuneWheelWidget({
     required this.items,
@@ -18,7 +18,7 @@ class FortuneWheelWidget extends StatefulWidget {
     required this.borderColor,
     required this.streamController,
     required this.onSpin,
-    required this.onAnimationEnd, // Pass from parent
+    required this.onAnimationEnd,
   });
 
   @override
@@ -59,7 +59,7 @@ class _FortuneWheelWidgetState extends State<FortuneWheelWidget> {
       onTap: () {
         FocusScope.of(context).unfocus();
         SystemChannels.textInput.invokeMethod('TextInput.hide');
-        widget.onSpin(); // Trigger spin
+        widget.onSpin();
       },
       child: FortuneWheel(
         animateFirst: false,
@@ -68,10 +68,10 @@ class _FortuneWheelWidgetState extends State<FortuneWheelWidget> {
             FortuneItem(
               child: Text(
                 widget.items[i],
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 20, 20, 20),
+                  color: Color.fromARGB(255, 20, 20, 20),
                 ),
               ),
               style: FortuneItemStyle(
@@ -90,7 +90,7 @@ class _FortuneWheelWidgetState extends State<FortuneWheelWidget> {
         },
         onAnimationEnd: () {
           _playEndSound();
-          widget.onAnimationEnd(); // Notify parent
+          widget.onAnimationEnd();
         },
       ),
     );

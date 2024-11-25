@@ -6,7 +6,7 @@ class AppTheme {
     brightness: Brightness.light,
     primarySwatch: Colors.blue,
     scaffoldBackgroundColor: Colors.white,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: Colors.blue,
       titleTextStyle: TextStyle(
         color: Colors.white,
@@ -15,7 +15,7 @@ class AppTheme {
       ),
       iconTheme: IconThemeData(color: Colors.white),
     ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       bodyMedium: TextStyle(color: Colors.black, fontSize: 16),
     ),
   );
@@ -27,14 +27,14 @@ class AppTheme {
     scaffoldBackgroundColor: const Color.fromARGB(255, 22, 22, 22),
     appBarTheme: AppBarTheme(
       color: Colors.blueGrey[900],
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
         color: Colors.white,
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: const IconThemeData(color: Colors.white),
     ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       bodyMedium: TextStyle(color: Colors.white, fontSize: 16),
     ),
   );
