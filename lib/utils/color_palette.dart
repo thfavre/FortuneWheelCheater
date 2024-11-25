@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 
 class ColorPalette {
   static const List<Color> customColors = [
-    Colors.redAccent,
-    Colors.blueAccent,
-    Colors.greenAccent,
-    Colors.orangeAccent,
-    Colors.purpleAccent,
-    Colors.cyanAccent,
-    Colors.pinkAccent,
-    Colors.yellowAccent,
-    Colors.tealAccent,
-    Colors.indigoAccent,
+    Color.fromARGB(255, 0, 184, 148),
+    Color.fromARGB(255, 108, 92, 231),
+    Color.fromARGB(255, 225, 112, 85),
+    Color.fromARGB(255, 116, 185, 255),
+    Color.fromARGB(255, 253, 203, 110),
+    Color.fromARGB(255, 253, 121, 168),
+    Color.fromARGB(255, 9, 132, 227),
   ];
 }
