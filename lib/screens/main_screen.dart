@@ -46,6 +46,8 @@ class _MainScreenState extends State<MainScreen> {
 
   void _spinWheel() {
     if (_items.length < 2) {
+      ScaffoldMessenger.of(context)
+          .hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content: Text('Add at least two items to spin the wheel!')),
@@ -156,13 +158,14 @@ class _MainScreenState extends State<MainScreen> {
             width: 60,
             height: 60,
             decoration: const BoxDecoration(
-              color: Colors.transparent,//Theme.of(context).scaffoldBackgroundColor,
+              color: Colors
+                  .transparent, //Theme.of(context).scaffoldBackgroundColor,
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,
             child: Text(
               // '${_cheatCount == null ? '' : _items[_cheatCount!].substring(0, _items[_cheatCount!].length < 5 ? _items[_cheatCount!].length : 5)}',
-              '${_cheatCount == null ? "" : _cheatCount!+1}',
+              '${_cheatCount == null ? "" : _cheatCount! + 1}',
               style: TextStyle(
                 fontSize: 15,
                 color: lighten(Theme.of(context).scaffoldBackgroundColor, 0.03),
